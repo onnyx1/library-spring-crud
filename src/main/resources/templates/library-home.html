@@ -1,0 +1,312 @@
+
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title></title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="/webjars/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+<script type="text/javascript"
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" th:href="@{/css/design.css}" />
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+	<table id="tab" class="table table-striped table-hover">
+		<caption style="padding: 5px;">
+			<h2>Library Management</h2>
+
+
+
+
+
+
+		</caption>
+		<tbody class="table-bordered">
+
+			<tr style="display: none">
+			</tr>
+			<tr>
+				<th>Title</th>
+				<th>Author</th>
+				<th>Publisher</th>
+				<th>Genre</th>
+				<th>Number of Pages</th>
+				<th>Actions</th>
+			</tr>
+
+
+			<tr th:each="book : ${books}">
+				<td th:text="${book.title}"></td>
+				<td th:text="${book.author}"></td>
+				<td th:text="${book.publisher}"></td>
+				<td th:text="${book.genre}"></td>
+				<td th:text="${book.number_of_pages}"></td>
+
+				<td>
+					<!-- Button trigger modal -->
+					<button type="button" class="btn btn-warning btn-sm" style="width: 48%"
+						data-toggle="modal"
+						th:attr="data-target='#exampleModalCenter' + *{book.id}">Edit</button>
+
+					<!-- Modal -->
+
+					<div class="modal fade" th:id="*{'exampleModalCenter' + {book.id}}"
+						tabindex="-1" role="dialog"
+						aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h2 class="display-3" id="exampleModalLongTitle">
+										<b>Update Book Information</b>
+									</h2>
+									<!--  		<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close"> 
+									<span aria-hidden="true">&times;</span>
+								</button>-->
+								</div>
+								<div class="modal-body">
+
+
+
+
+
+
+									<form action="/library/update" method="POST">
+
+										<input type="hidden" th:value="*{book.id}" name="id" />
+
+										<div class="form-group">
+
+
+											<label>Title</label> <input type="text"
+												th:value="*{book.title}" class="form-control mb-4 col-2"
+												name="title" placeholder="">
+
+										</div>
+
+										<div class="form-group">
+
+
+											<label>Author</label> <input type="text"
+												th:value="*{book.author}" class="form-control mb-4 col-2"
+												name="author" placeholder="">
+
+										</div>
+										<div class="form-group">
+
+											<label>Publisher</label> <input type="text"
+												th:value="*{book.publisher}" class="form-control mb-4 col-2"
+												name="publisher" placeholder="">
+										</div>
+										<div class="form-group">
+											<label>Genre</label> <input type="text"
+												th:value="*{book.genre}" class="form-control mb-4 col-2"
+												name="genre" placeholder="">
+										</div>
+										<div class="form-group">
+											<label>Number of Pages</label> <input type="text"
+												th:value="*{book.number_of_pages}" name="pages"
+												class="form-control mb-4 col-2" placeholder="">
+										</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-primary">Save
+												changes</button>
+										</div>
+									</form>
+
+								</div>
+
+							</div>
+						</div>
+					</div> <a th:href="@{/library/delete(bookId=${book.id})}"
+					class="btn btn-danger btn-sm" style="width: 48%">Delete</a>
+				</td>
+
+			</tr>
+
+		</tbody>
+
+		<tfoot>
+			<tr>
+				<td colspan="1">
+					<div>
+
+						<button type="button" class="btn btn-success btn-sm"
+							style="width: 48%" data-toggle="modal"
+						data-target="#add">Add Book</button>
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						<!-- Modal -->
+
+					<div class="modal fade" id="add"
+						tabindex="-1" role="dialog"
+						aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h2 class="display-3" id="exampleModalLongTitle">
+										<b>Add Book</b>
+									</h2>
+									<!--  		<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close"> 
+									<span aria-hidden="true">&times;</span>
+								</button>-->
+								</div>
+								<div class="modal-body">
+
+
+
+
+									<form action="/library/save" method="POST">
+
+										<div class="form-group">
+
+
+											<label>Title</label> <input type="text"
+												 class="form-control mb-4 col-2"
+												name="title" placeholder="">
+
+										</div>
+
+										<div class="form-group">
+
+
+											<label>Author</label> <input type="text"
+											 class="form-control mb-4 col-2"
+												name="author" placeholder="">
+
+										</div>
+										<div class="form-group">
+
+											<label>Publisher</label> <input type="text"
+												 class="form-control mb-4 col-2"
+												name="publisher" placeholder="">
+										</div>
+										<div class="form-group">
+											<label>Genre</label> <input type="text"
+												 class="form-control mb-4 col-2"
+												name="genre" placeholder="">
+										</div>
+										<div class="form-group">
+											<label>Number of Pages</label> <input type="text"
+												 name="pages"
+												class="form-control mb-4 col-2" placeholder="">
+										</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-primary">Create
+												</button>
+										</div>
+									</form>
+
+								</div>
+
+							</div>
+						</div>
+					</div>
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						<a th:href="@{/library/csv}"class="btn btn-primary btn-sm" 
+							style="width: 48%">Download CSV</a>
+					</div>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+
+
+
+
+
+</body>
+</html>

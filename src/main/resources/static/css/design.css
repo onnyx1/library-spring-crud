@@ -1,0 +1,12 @@
+
+
+.table {
+	max-width: none;
+	width: 75%;
+	position: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.table tbody td{ padding:20px; border:1px solid #DDDDDD; }
+.table th{ padding:20px; border:1px solid #DDDDDD; }
